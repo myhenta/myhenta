@@ -12,15 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-soft: #FFF5F7;
-            --pink-light: #FFE4EC;
-            --pink-medium: #F8C8D8;
-            --pink-accent: #E8A0B8;
-            --black: #1A1A1A;
-            --black-soft: #2D2D2D;
-            --white: #FFFFFF;
-            --shadow: 0 6px 24px rgba(232, 160, 184, 0.12);
-            --shadow-hover: 0 12px 36px rgba(232, 160, 184, 0.2);
+            --bg-dark: #0d0618;
+            --bg-purple: #1a0b2e;
+            --purple-deep: #2d1b4e;
+            --purple-mid: #4a2c7a;
+            --pink-accent: #e891b8;
+            --pink-soft: #f5c0d8;
+            --pink-glow: rgba(232, 145, 184, 0.35);
+            --glass-bg: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-strong: rgba(255, 255, 255, 0.1);
+            --text-main: #f8eef5;
+            --text-soft: #c9b0d4;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 16px 48px rgba(232, 145, 184, 0.25);
         }
 
         * {
@@ -35,13 +40,16 @@
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            background: var(--pink-soft);
-            color: var(--black);
+            background: var(--bg-dark);
+            background-image:
+                radial-gradient(ellipse at 20% 10%, rgba(74, 44, 122, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(232, 145, 184, 0.15) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 50%, rgba(45, 27, 78, 0.3) 0%, transparent 70%);
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Site name top-left — fixed, stays on scroll */
         .site-name {
             position: fixed;
             top: 1.2rem;
@@ -51,17 +59,17 @@
             font-size: 2.2rem;
             font-weight: 600;
             letter-spacing: 0.16em;
-            color: var(--black);
+            color: var(--text-main);
             text-decoration: none;
             cursor: pointer;
-            transition: color 0.25s ease;
+            transition: color 0.2s ease;
+            text-shadow: 0 0 20px var(--pink-glow);
         }
 
         .site-name:hover {
             color: var(--pink-accent);
         }
 
-        /* Centered title — fixed with top bar */
         .logo {
             position: fixed;
             top: 1.15rem;
@@ -72,12 +80,12 @@
             font-size: 1.85rem;
             font-weight: 500;
             letter-spacing: 0.04em;
-            color: var(--black);
+            color: var(--text-main);
             white-space: nowrap;
             pointer-events: none;
+            text-shadow: 0 0 24px var(--pink-glow);
         }
 
-        /* Instagram button + flowers — fixed, stays on scroll */
         .ig-wrap {
             position: fixed;
             top: 1.2rem;
@@ -91,18 +99,19 @@
         .flower {
             font-size: 1.2rem;
             display: inline-block;
-            transition: transform 0.3s ease;
+            transition: transform 0.25s ease;
             cursor: default;
             user-select: none;
             line-height: 1;
+            filter: drop-shadow(0 0 6px var(--pink-glow));
         }
 
         .ig-wrap:hover .flower:nth-child(1) {
-            transform: scale(1.3) rotate(-90deg);
+            transform: scale(1.25) rotate(-90deg);
         }
 
         .ig-wrap:hover .flower:nth-child(3) {
-            transform: scale(1.3) rotate(90deg);
+            transform: scale(1.25) rotate(90deg);
         }
 
         .ig-btn {
@@ -110,23 +119,23 @@
             align-items: center;
             gap: 0.55rem;
             padding: 0.8rem 1.45rem;
-            background: var(--white);
-            border: 1px solid var(--pink-medium);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             border-radius: 50px;
-            color: var(--black-soft);
+            color: var(--text-main);
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            box-shadow: 0 4px 20px rgba(232, 160, 184, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
         }
 
         .ig-btn:hover {
-            background: var(--pink-accent);
-            color: var(--white);
+            background: rgba(232, 145, 184, 0.25);
             border-color: var(--pink-accent);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
         }
 
         .ig-btn svg {
@@ -135,7 +144,6 @@
             fill: currentColor;
         }
 
-        /* Soft divider under top bar */
         .top-divider {
             position: fixed;
             top: 4.15rem;
@@ -143,40 +151,150 @@
             right: 0;
             height: 1px;
             z-index: 99;
-            background: linear-gradient(90deg, transparent 8%, var(--pink-medium) 25%, var(--pink-accent) 50%, var(--pink-medium) 75%, transparent 92%);
-            box-shadow: 0 3px 10px rgba(232, 160, 184, 0.2);
+            background: linear-gradient(90deg, transparent 8%, var(--purple-mid) 25%, var(--pink-accent) 50%, var(--purple-mid) 75%, transparent 92%);
+            box-shadow: 0 3px 16px var(--pink-glow);
             pointer-events: none;
         }
 
-        /* Main gallery */
         main {
             position: relative;
             z-index: 5;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 5.2rem 1.5rem 4rem;
+            padding: 5.5rem 1.5rem 4rem;
+        }
+
+        .albums-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--pink-soft);
+            text-align: center;
+            margin-bottom: 1.8rem;
+            text-shadow: 0 0 20px var(--pink-glow);
+        }
+
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .album-card {
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            aspect-ratio: 4 / 3;
+        }
+
+        .album-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--pink-accent);
+        }
+
+        .album-cover {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: transform 0.35s ease;
+            filter: brightness(0.75);
+        }
+
+        .album-card:hover .album-cover img {
+            transform: scale(1.08);
+            filter: brightness(0.9);
+        }
+
+        .album-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.4rem 1.3rem;
+            background: linear-gradient(to top, rgba(13, 6, 24, 0.92) 0%, rgba(13, 6, 24, 0.6) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .album-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--text-main);
+        }
+
+        .album-count {
+            font-size: 0.9rem;
+            color: var(--pink-soft);
+            font-weight: 300;
+        }
+
+        .album-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 42px;
+            height: 42px;
+            background: var(--glass-strong);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+
+        .gallery-section {
+            margin-top: 1rem;
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
         }
 
         .card {
             position: relative;
-            background: var(--white);
-            border-radius: 16px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             cursor: pointer;
-            will-change: transform;
         }
 
         .card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-6px);
             box-shadow: var(--shadow-hover);
+            border-color: rgba(232, 145, 184, 0.4);
         }
 
         .card-img-wrap {
@@ -184,7 +302,7 @@
             width: 100%;
             padding-top: 130%;
             overflow: hidden;
-            background: var(--pink-light);
+            background: var(--purple-deep);
         }
 
         .card-img-wrap img {
@@ -195,214 +313,194 @@
             height: 100%;
             object-fit: cover;
             object-position: center top;
-            transition: transform 0.35s ease;
+            transition: transform 0.3s ease;
         }
 
         .card:hover .card-img-wrap img {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
-        .card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem 1.1rem;
-            background: linear-gradient(to top, rgba(26, 26, 26, 0.5), transparent);
-            opacity: 0;
-            transition: opacity 0.25s ease;
+        .album-view {
+            display: none;
+            margin-bottom: 2rem;
         }
 
-        .card:hover .card-overlay {
-            opacity: 1;
+        .album-view.active {
+            display: block;
         }
 
-        .card-label {
-            color: var(--white);
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 0.02em;
+        .album-view-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding: 1rem 1.3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
         }
 
-        /* Lightbox */
+        .album-view-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--pink-soft);
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.1rem;
+            background: var(--glass-strong);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(232, 145, 184, 0.2);
+            border-color: var(--pink-accent);
+        }
+
         .lightbox {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 26, 0.9);
+            background: rgba(8, 4, 16, 0.92);
+            backdrop-filter: blur(6px);
             z-index: 1000;
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.25s ease, visibility 0.25s ease;
-            padding: 2rem;
         }
 
         .lightbox.active {
-            opacity: 1;
-            visibility: visible;
+            display: flex;
         }
 
         .lightbox-content {
             position: relative;
-            max-width: 90vw;
+            max-width: 92vw;
             max-height: 90vh;
-            border-radius: 12px;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .lightbox-content img {
-            max-width: 90vw;
-            max-height: 85vh;
-            display: block;
+            max-width: 100%;
+            max-height: 90vh;
             object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
         .lightbox-close {
             position: absolute;
-            top: -45px;
+            top: -40px;
             right: 0;
-            background: none;
+            background: transparent;
             border: none;
-            color: var(--white);
-            font-size: 2rem;
+            color: var(--text-main);
+            font-size: 2.2rem;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s;
+            line-height: 1;
+            padding: 0.2rem 0.5rem;
+            opacity: 0.85;
+            transition: opacity 0.2s;
         }
 
         .lightbox-close:hover {
-            color: var(--pink-accent);
+            opacity: 1;
         }
 
         .lightbox-nav {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: var(--white);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            font-size: 2rem;
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            font-size: 1.5rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background 0.2s ease;
+            transition: background 0.2s;
+            z-index: 10;
         }
 
         .lightbox-nav:hover {
-            background: var(--pink-accent);
+            background: rgba(232, 145, 184, 0.3);
         }
 
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
+        .lightbox-prev { left: 16px; }
+        .lightbox-next { right: 16px; }
 
-        /* Footer contact */
         .contact {
-            position: relative;
-            z-index: 5;
             text-align: center;
-            padding: 2.5rem 1.5rem 3rem;
-            font-size: 0.9rem;
-            font-weight: 300;
-            color: var(--black-soft);
-            letter-spacing: 0.02em;
+            margin-top: 3rem;
+            padding-bottom: 2rem;
+            color: var(--text-soft);
+            font-size: 0.95rem;
         }
 
         .contact a {
             color: var(--pink-accent);
             text-decoration: none;
-            font-weight: 400;
-            transition: color 0.25s ease;
         }
 
         .contact a:hover {
-            color: var(--black);
             text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .logo {
-                font-size: 1.4rem;
-            }
         }
 
         @media (max-width: 768px) {
             .logo {
                 font-size: 1.2rem;
                 top: 4.2rem;
-                position: fixed;
+                left: 50%;
             }
-            .top-divider {
-                top: 5.8rem;
+            .site-name {
+                font-size: 1.5rem;
+                left: 1rem;
             }
-            main {
-                padding-top: 6.8rem;
+            .ig-wrap {
+                right: 1rem;
+            }
+            .ig-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .albums-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
             }
             .gallery {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 1.2rem;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.9rem;
+            }
+            main {
+                padding: 7rem 1rem 3rem;
             }
             .lightbox-nav {
                 width: 40px;
                 height: 40px;
-                font-size: 1.2rem;
+                font-size: 1.6rem;
             }
-            .lightbox-prev { left: 10px; }
-            .lightbox-next { right: 10px; }
-        }
-
-        @media (max-width: 480px) {
-            .gallery {
-                grid-template-columns: 1fr;
-            }
-            .logo {
-                font-size: 1.05rem;
-                top: 4rem;
-            }
-            .top-divider {
-                top: 5.5rem;
-            }
-            .site-name {
-                top: 0.9rem;
-                left: 1rem;
-                font-size: 1.55rem;
-                letter-spacing: 0.1em;
-            }
-            .ig-wrap {
-                top: 0.9rem;
-                right: 1rem;
-                gap: 0.3rem;
-            }
-            .flower {
-                font-size: 0.95rem;
-            }
-            .ig-btn {
-                padding: 0.55rem 0.95rem;
-                font-size: 0.82rem;
-            }
-            .ig-btn svg {
-                width: 16px;
-                height: 16px;
-            }
-            main {
-                padding-top: 6.2rem;
-            }
-            .contact {
-                font-size: 0.8rem;
-                padding: 2rem 1rem 2.5rem;
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+            .album-name {
+                font-size: 1.25rem;
             }
         }
     </style>
@@ -425,374 +523,156 @@
     <div class="top-divider"></div>
 
     <main>
-        <section id="gallery" class="gallery">
-            <div class="card" data-index="0">
-                <div class="card-img-wrap">
-                    <img src="images/Anime-Artist-artist-Anime-Ero-Swim-Anime-Ero-6170435.jpeg" alt="White bikini pool" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Pool Smile</span>
+        <section class="albums-section" id="albums">
+            <h2 class="section-title">Альбомы</h2>
+            <div class="albums-grid">
+                <div class="album-card" data-album="1" onclick="openAlbum(1)">
+                    <div class="album-cover">
+                        <img src="images/NG-Anime-Artist-artist-Anime-6003888.jpg" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="album-icon">📁</div>
+                    <div class="album-info">
+                        <span class="album-name">Anime Collection</span>
+                        <span class="album-count">33 фото</span>
+                    </div>
+                </div>
+                <div class="album-card" data-album="2" onclick="openAlbum(2)">
+                    <div class="album-cover">
+                        <img src="images/real-girl-pink-hair-night.jpg" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="album-icon">📁</div>
+                    <div class="album-info">
+                        <span class="album-name">Special Gallery</span>
+                        <span class="album-count">3 фото</span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card" data-index="1">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-Anime-AO-5192739.jpeg" alt="Purple floral bra" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Night Bloom</span>
-                    </div>
-                </div>
+        <div class="album-view" id="album-view-1">
+            <div class="album-view-header">
+                <h3 class="album-view-title">📁 Anime Collection</h3>
+                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
+            <section class="gallery" id="gallery-album-1"></section>
+        </div>
 
-            <div class="card" data-index="2">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-5952506.jpeg" alt="Dark purple lingerie" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Long Silk</span>
-                    </div>
-                </div>
+        <div class="album-view" id="album-view-2">
+            <div class="album-view-header">
+                <h3 class="album-view-title">📁 Special Gallery</h3>
+                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
+            <section class="gallery" id="gallery-album-2"></section>
+        </div>
 
-            <div class="card" data-index="3">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6003888.jpeg" alt="Green hair red dress" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Rose Garden</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="4">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6101774.jpeg" alt="Navy bikini beach" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Sea Breeze</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="5">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6111054.jpeg" alt="Maid outfit" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Maid Charm</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="6">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6293466.jpeg" alt="Blonde by window" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Window Light</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="7">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6336684.jpeg" alt="Blonde teal slip" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Teal Soft</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="8">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6367377.jpeg" alt="Purple hair back view" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Back Glance</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="9">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-7755431.jpeg" alt="Micro swimsuit" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Sky Edge</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="10">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Oppai-5641053.png" alt="Pink lace bra" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Pink Lace</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="11">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6349413.jpeg" alt="Open blouse" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Office Soft</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="12">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Oppai-7193096.jpeg" alt="Silver hair anime girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Crystal Dream</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="13">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-7449100.jpeg" alt="Purple hair swimsuit" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Ocean Breeze</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="14">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6650574.jpeg" alt="Turtleneck girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Soft Knit</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="15">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7106020.jpeg" alt="Blue bikini girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Splash Joy</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="16">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7077108.jpeg" alt="Red hair girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Summer Glow</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="17">
-                <div class="card-img-wrap">
-                    <img src="images/Anime-NG-Anime-Artist-artist-8113485.jpeg" alt="Blonde pink bikini" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Pink Horizon</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="18">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-7610841.jpeg" alt="Blonde green skirt" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Ivy Whisper</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="19">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-7761954.jpeg" alt="Pink hair bikini" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Tropical Smile</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="20">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7568441.jpeg" alt="Blonde on bed" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Morning Soft</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="21">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7732135.jpeg" alt="Pigtails girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Playful Bows</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="22">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7778332.jpeg" alt="Short hair girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Flower Soft</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="23">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7905368.jpeg" alt="Brown hair lingerie" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Elegant Curve</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="24">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-8005631.jpeg" alt="White swimsuit" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">White Wave</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="25">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6308617.jpeg" alt="Purple hair girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Lavender Light</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="26">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6375972.jpeg" alt="Blonde strawberry" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Sweet Berry</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="27">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6410677.jpeg" alt="Blue eyes lingerie" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Soft Arms</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="28">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-6910720.jpeg" alt="Blonde green eyes" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Quiet Morning</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="29">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-Anime-Ero-7223183.jpeg" alt="Maid style" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Snowflake Maid</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="30">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7409371.jpeg" alt="Pink hair back" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Ribbon Turn</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="31">
-                <div class="card-img-wrap">
-                    <img src="images/NG-Anime-Artist-artist-AO-7614787.jpeg" alt="Pink hair beach" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Beach Glow</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" data-index="32">
-                <div class="card-img-wrap">
-                    <img src="images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpeg" alt="Yukata girl" loading="lazy">
-                    <div class="card-overlay">
-                        <span class="card-label">Cherry Night</span>
-                    </div>
-                </div>
-            </div>
-
+        <section class="gallery-section" id="all-photos">
+            <h2 class="section-title">Все фотографии</h2>
+            <section id="gallery" class="gallery"></section>
         </section>
     </main>
 
     <p class="contact">Связаться с нами: <a href="mailto:lortan16@gmail.com">lortan16@gmail.com</a></p>
 
-    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
-        <button class="lightbox-nav lightbox-prev" id="prevBtn">‹</button>
+        <button class="lightbox-nav lightbox-prev" id="prevBtn" aria-label="Previous">‹</button>
         <div class="lightbox-content">
-            <button class="lightbox-close" id="closeBtn">×</button>
-            <img id="lightboxImg" src="" alt="Full view">
+            <button class="lightbox-close" id="closeBtn" aria-label="Close">×</button>
+            <img id="lightboxImg" src="" alt="" decoding="async">
         </div>
-        <button class="lightbox-nav lightbox-next" id="nextBtn">›</button>
+        <button class="lightbox-nav lightbox-next" id="nextBtn" aria-label="Next">›</button>
     </div>
 
     <script>
-        const cards = document.querySelectorAll('.card');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const closeBtn = document.getElementById('closeBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
+        // New photos first, then anime
         const images = [
-            'images/Anime-Artist-artist-Anime-Ero-Swim-Anime-Ero-6170435.jpeg',
-            'images/NG-Anime-Artist-Anime-AO-5192739.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-5952506.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6003888.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6101774.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6111054.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6293466.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6336684.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6367377.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-7755431.jpeg',
-            'images/NG-Anime-Artist-artist-Oppai-5641053.png',
-            'images/NG-Anime-Artist-artist-Anime-6349413.jpeg',
-            'images/NG-Anime-Artist-artist-Oppai-7193096.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-7449100.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6650574.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7106020.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7077108.jpeg',
-            'images/Anime-NG-Anime-Artist-artist-8113485.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-7610841.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-7761954.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7568441.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7732135.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7778332.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7905368.jpeg',
-            'images/NG-Anime-Artist-artist-AO-8005631.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6308617.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6375972.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6410677.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-6910720.jpeg',
-            'images/NG-Anime-Artist-artist-Anime-Ero-7223183.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7409371.jpeg',
-            'images/NG-Anime-Artist-artist-AO-7614787.jpeg',
-            'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpeg'
+            'images/real-girl-tattoos-butterflies.jpg',
+            'images/real-girl-blonde-pigtails.jpg',
+            'images/real-girl-pink-hair-night.jpg',
+            'images/Anime-Artist-artist-Anime-Ero-Swim-Anime-Ero-6170435.jpg',
+            'images/NG-Anime-Artist-Anime-AO-5192739.jpg',
+            'images/NG-Anime-Artist-artist-Anime-5952506.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6003888.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6101774.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6111054.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6293466.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6336684.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6367377.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7755431.jpg',
+            'images/NG-Anime-Artist-artist-Oppai-5641053.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6349413.jpg',
+            'images/NG-Anime-Artist-artist-Oppai-7193096.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7449100.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6650574.jpg',
+            'images/NG-Anime-Artist-artist-AO-7106020.jpg',
+            'images/NG-Anime-Artist-artist-AO-7077108.jpg',
+            'images/Anime-NG-Anime-Artist-artist-8113485.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7610841.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7761954.jpg',
+            'images/NG-Anime-Artist-artist-AO-7568441.jpg',
+            'images/NG-Anime-Artist-artist-AO-7732135.jpg',
+            'images/NG-Anime-Artist-artist-AO-7778332.jpg',
+            'images/NG-Anime-Artist-artist-AO-7905368.jpg',
+            'images/NG-Anime-Artist-artist-AO-8005631.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6308617.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6375972.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6410677.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6910720.jpg',
+            'images/NG-Anime-Artist-artist-Anime-Ero-7223183.jpg',
+            'images/NG-Anime-Artist-artist-AO-7409371.jpg',
+            'images/NG-Anime-Artist-artist-AO-7614787.jpg',
+            'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpg'
         ];
 
-        let currentIndex = 0;
+        const album1Images = images.slice(3);
+        const album2Images = images.slice(0, 3);
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                currentIndex = parseInt(card.dataset.index);
-                openLightbox();
+        let currentIndex = 0;
+        let currentGallery = images;
+
+        function buildGallery(containerId, srcs) {
+            const container = document.getElementById(containerId);
+            const frag = document.createDocumentFragment();
+            srcs.forEach((src, i) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.index = i;
+                card.innerHTML = '<div class="card-img-wrap"><img src="' + src + '" alt="" loading="lazy" decoding="async"></div>';
+                card.addEventListener('click', function() {
+                    currentIndex = i;
+                    currentGallery = srcs;
+                    openLightbox();
+                });
+                frag.appendChild(card);
             });
-        });
+            container.appendChild(frag);
+        }
+
+        buildGallery('gallery', images);
+        buildGallery('gallery-album-1', album1Images);
+        buildGallery('gallery-album-2', album2Images);
+
+        function openAlbum(num) {
+            document.getElementById('albums').style.display = 'none';
+            document.getElementById('all-photos').style.display = 'none';
+            document.getElementById('album-view-1').classList.remove('active');
+            document.getElementById('album-view-2').classList.remove('active');
+            document.getElementById('album-view-' + num).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeAlbum() {
+            document.getElementById('album-view-1').classList.remove('active');
+            document.getElementById('album-view-2').classList.remove('active');
+            document.getElementById('albums').style.display = 'block';
+            document.getElementById('all-photos').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
 
         function openLightbox() {
-            lightboxImg.src = images[currentIndex];
+            lightboxImg.src = currentGallery[currentIndex];
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -800,35 +680,36 @@
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
+            lightboxImg.src = '';
         }
 
-        closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
+        document.getElementById('closeBtn').addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) closeLightbox();
         });
 
-        prevBtn.addEventListener('click', (e) => {
+        document.getElementById('prevBtn').addEventListener('click', function(e) {
             e.stopPropagation();
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            lightboxImg.src = images[currentIndex];
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            lightboxImg.src = currentGallery[currentIndex];
         });
 
-        nextBtn.addEventListener('click', (e) => {
+        document.getElementById('nextBtn').addEventListener('click', function(e) {
             e.stopPropagation();
-            currentIndex = (currentIndex + 1) % images.length;
-            lightboxImg.src = images[currentIndex];
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            lightboxImg.src = currentGallery[currentIndex];
         });
 
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', function(e) {
             if (!lightbox.classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') {
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                lightboxImg.src = images[currentIndex];
+                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                lightboxImg.src = currentGallery[currentIndex];
             }
             if (e.key === 'ArrowRight') {
-                currentIndex = (currentIndex + 1) % images.length;
-                lightboxImg.src = images[currentIndex];
+                currentIndex = (currentIndex + 1) % currentGallery.length;
+                lightboxImg.src = currentGallery[currentIndex];
             }
         });
     </script>
