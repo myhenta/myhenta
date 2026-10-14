@@ -181,7 +181,7 @@
 
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             max-width: 900px;
             margin: 0 auto;
@@ -367,6 +367,57 @@
             border-color: var(--pink-accent);
         }
 
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.4rem;
+            background: linear-gradient(135deg, rgba(232, 145, 184, 0.35), rgba(74, 44, 122, 0.5));
+            border: 1px solid var(--pink-accent);
+            border-radius: 50px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 16px rgba(232, 145, 184, 0.2);
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, rgba(232, 145, 184, 0.5), rgba(74, 44, 122, 0.65));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(232, 145, 184, 0.35);
+        }
+
+        .pack-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem 1.4rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+        }
+
+        .pack-info-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--pink-soft);
+        }
+
+        .pack-info-desc {
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-top: 0.25rem;
+        }
+
+
         .lightbox {
             position: fixed;
             top: 0;
@@ -464,6 +515,12 @@
             text-decoration: underline;
         }
 
+        @media (max-width: 1100px) {
+            .albums-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .logo {
                 font-size: 1.2rem;
@@ -546,6 +603,16 @@
                         <span class="album-count">3 фото</span>
                     </div>
                 </div>
+                <div class="album-card" data-album="3" onclick="openAlbum(3)">
+                    <div class="album-cover">
+                        <img src="images/mc-girls-1.jpg" alt="" loading="lazy" decoding="async">
+                    </div>
+                    <div class="album-icon">⛏️</div>
+                    <div class="album-info">
+                        <span class="album-name">Minecraft rp Girls</span>
+                        <span class="album-count">2 фото</span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -563,6 +630,23 @@
                 <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
             <section class="gallery" id="gallery-album-2"></section>
+        </div>
+
+        <div class="album-view" id="album-view-3">
+            <div class="album-view-header">
+                <h3 class="album-view-title">⛏️ Minecraft rp Girls</h3>
+                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
+            </div>
+            <div class="pack-info">
+                <div>
+                    <div class="pack-info-name">GirlPack 26.3</div>
+                    <div class="pack-info-desc">Minecraft Resource Pack • 2 фото</div>
+                </div>
+                <a href="downloads/GirlPack_26.3.zip" class="download-btn" download>
+                    ⬇️ Скачать ресурспак
+                </a>
+            </div>
+            <section class="gallery" id="gallery-album-3"></section>
         </div>
 
         <section class="gallery-section" id="all-photos">
@@ -625,6 +709,10 @@
 
         const album1Images = images.slice(3);
         const album2Images = images.slice(0, 3);
+        const album3Images = [
+            'images/mc-girls-1.jpg',
+            'images/mc-girls-2.jpg'
+        ];
 
         let currentIndex = 0;
         let currentGallery = images;
@@ -650,12 +738,14 @@
         buildGallery('gallery', images);
         buildGallery('gallery-album-1', album1Images);
         buildGallery('gallery-album-2', album2Images);
+        buildGallery('gallery-album-3', album3Images);
 
         function openAlbum(num) {
             document.getElementById('albums').style.display = 'none';
             document.getElementById('all-photos').style.display = 'none';
             document.getElementById('album-view-1').classList.remove('active');
             document.getElementById('album-view-2').classList.remove('active');
+            document.getElementById('album-view-3').classList.remove('active');
             document.getElementById('album-view-' + num).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -663,6 +753,7 @@
         function closeAlbum() {
             document.getElementById('album-view-1').classList.remove('active');
             document.getElementById('album-view-2').classList.remove('active');
+            document.getElementById('album-view-3').classList.remove('active');
             document.getElementById('albums').style.display = 'block';
             document.getElementById('all-photos').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
