@@ -50,6 +50,30 @@
             overflow-x: hidden;
         }
 
+
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4.3rem;
+            z-index: 90;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 1px solid transparent;
+            transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            pointer-events: none;
+        }
+
+        .header-bar.scrolled {
+            background: rgba(26, 11, 46, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(232, 145, 184, 0.2);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        }
+
         .site-name {
             position: fixed;
             top: 1.2rem;
@@ -559,10 +583,15 @@
             .album-name {
                 font-size: 1.25rem;
             }
+            .header-bar {
+                height: 5.5rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="header-bar" id="headerBar"></div>
+
     <a href="/" class="site-name" onclick="location.reload(); return false;">MyHenta</a>
 
     <div class="ig-wrap">
@@ -587,29 +616,23 @@
                     <div class="album-cover">
                         <img src="images/NG-Anime-Artist-artist-Anime-6003888.jpg" alt="" loading="lazy" decoding="async">
                     </div>
-                    <div class="album-icon">📁</div>
                     <div class="album-info">
-                        <span class="album-name">Anime Collection</span>
                         <span class="album-count">33 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="2" onclick="openAlbum(2)">
                     <div class="album-cover">
-                        <img src="images/real-girl-pink-hair-night.jpg" alt="" loading="lazy" decoding="async">
+                        <img src="images/real-girl-butterflies-cover.jpg" alt="" loading="lazy" decoding="async">
                     </div>
-                    <div class="album-icon">📁</div>
                     <div class="album-info">
-                        <span class="album-name">Special Gallery</span>
-                        <span class="album-count">6 фото</span>
+                        <span class="album-count">9 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="3" onclick="openAlbum(3)">
                     <div class="album-cover">
                         <img src="images/mc-girls-1.jpg" alt="" loading="lazy" decoding="async">
                     </div>
-                    <div class="album-icon">⛏️</div>
                     <div class="album-info">
-                        <span class="album-name">Minecraft rp Girls</span>
                         <span class="album-count">2 фото</span>
                     </div>
                 </div>
@@ -618,7 +641,7 @@
 
         <div class="album-view" id="album-view-1">
             <div class="album-view-header">
-                <h3 class="album-view-title">📁 Anime Collection</h3>
+                <h3 class="album-view-title">Anime Photo</h3>
                 <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
             <section class="gallery" id="gallery-album-1"></section>
@@ -626,7 +649,7 @@
 
         <div class="album-view" id="album-view-2">
             <div class="album-view-header">
-                <h3 class="album-view-title">📁 Special Gallery</h3>
+                <h3 class="album-view-title">Cute Asian Photo</h3>
                 <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
             <section class="gallery" id="gallery-album-2"></section>
@@ -634,7 +657,7 @@
 
         <div class="album-view" id="album-view-3">
             <div class="album-view-header">
-                <h3 class="album-view-title">⛏️ Minecraft rp Girls</h3>
+                <h3 class="album-view-title">Minecraft rp Girls</h3>
                 <button class="back-btn" onclick="closeAlbum()">← Назад</button>
             </div>
             <div class="pack-info">
@@ -669,6 +692,9 @@
     <script>
         // New photos first, then anime
         const images = [
+            'images/real-girl-lying-tongue.jpg',
+            'images/real-girl-white-tank.jpg',
+            'images/real-girl-hanfu-pout.jpg',
             'images/real-girl-night-finger.jpg',
             'images/real-girl-peace-lace.jpg',
             'images/real-girl-towel-cup.jpg',
@@ -710,8 +736,8 @@
             'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpg'
         ];
 
-        const album1Images = images.slice(6);
-        const album2Images = images.slice(0, 6);
+        const album1Images = images.slice(9);
+        const album2Images = images.slice(0, 9);
         const album3Images = [
             'images/mc-girls-1.jpg',
             'images/mc-girls-2.jpg'
@@ -806,6 +832,17 @@
                 lightboxImg.src = currentGallery[currentIndex];
             }
         });
+
+        // Header turns purple on scroll
+        const headerBar = document.getElementById('headerBar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+                headerBar.classList.add('scrolled');
+            } else {
+                headerBar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
     </script>
 </body>
 </html>
