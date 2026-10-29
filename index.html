@@ -617,7 +617,7 @@
                         <img src="images/NG-Anime-Artist-artist-Oppai-5641053.jpg" alt="" loading="lazy" decoding="async">
                     </div>
                     <div class="album-info">
-                        <span class="album-count">33 фото</span>
+                        <span class="album-count">38 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="2" onclick="openAlbum(2)">
@@ -692,6 +692,11 @@
     <script>
         // New photos first, then anime
         const images = [
+            'images/anime-asuna-white.jpg',
+            'images/anime-blackhair-lift.jpg',
+            'images/anime-white-bikini.jpg',
+            'images/anime-blonde-blackbikini.jpg',
+            'images/anime-bath-shower.jpg',
             'images/real-girl-blonde-gray.jpg',
             'images/real-girl-pink-blackdress.jpg',
             'images/real-girl-beach-sunset.jpg',
@@ -745,8 +750,8 @@
             'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpg'
         ];
 
-        const album1Images = images.slice(18);
-        const album2Images = images.slice(0, 18);
+        const album1Images = images.slice(0, 5).concat(images.slice(23));
+        const album2Images = images.slice(5, 23);
         const album3Images = [
             'images/mc-girls-1.jpg',
             'images/mc-girls-2.jpg'
