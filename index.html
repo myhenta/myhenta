@@ -12,20 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0d0618;
-            --bg-purple: #1a0b2e;
-            --purple-deep: #2d1b4e;
-            --purple-mid: #4a2c7a;
-            --pink-accent: #e891b8;
-            --pink-soft: #f5c0d8;
-            --pink-glow: rgba(232, 145, 184, 0.35);
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-strong: rgba(255, 255, 255, 0.1);
-            --text-main: #f8eef5;
-            --text-soft: #c9b0d4;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --shadow-hover: 0 16px 48px rgba(232, 145, 184, 0.25);
+            --bg-dark: #fef9f3;
+            --bg-purple: #fff5f0;
+            --purple-deep: #f5e6d8;
+            --purple-mid: #f0d4c8;
+            --pink-accent: #e8a0b0;
+            --pink-soft: #f5c4ce;
+            --pink-glow: rgba(232, 160, 176, 0.35);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(232, 160, 176, 0.25);
+            --glass-strong: rgba(255, 255, 255, 0.85);
+            --text-main: #5a3a42;
+            --text-soft: #8a6a72;
+            --shadow: 0 8px 32px rgba(180, 140, 150, 0.18);
+            --shadow-hover: 0 16px 48px rgba(232, 160, 176, 0.28);
         }
 
         * {
@@ -42,9 +42,9 @@
             font-family: 'Inter', system-ui, sans-serif;
             background: var(--bg-dark);
             background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(74, 44, 122, 0.4) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(232, 145, 184, 0.15) 0%, transparent 45%),
-                radial-gradient(ellipse at 50% 50%, rgba(45, 27, 78, 0.3) 0%, transparent 70%);
+                radial-gradient(ellipse at 15% 5%, rgba(255, 240, 220, 0.9) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 90%, rgba(245, 200, 210, 0.35) 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 40%, rgba(255, 248, 240, 0.6) 0%, transparent 60%);
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
@@ -67,11 +67,11 @@
         }
 
         .header-bar.scrolled {
-            background: rgba(26, 11, 46, 0.92);
+            background: rgba(255, 249, 243, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(232, 145, 184, 0.2);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid rgba(232, 160, 176, 0.25);
+            box-shadow: 0 4px 24px rgba(180, 140, 150, 0.15);
         }
 
         .site-name {
@@ -117,7 +117,37 @@
             z-index: 100;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.45rem;
+        }
+
+        .lang-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2rem;
+            height: 2rem;
+            padding: 0 0.45rem;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-soft);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            user-select: none;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--pink-accent);
+            color: var(--text-main);
+        }
+
+        .lang-btn.active {
+            background: rgba(232, 160, 176, 0.35);
+            border-color: var(--pink-accent);
+            color: var(--text-main);
         }
 
         .flower {
@@ -157,7 +187,7 @@
         }
 
         .ig-btn:hover {
-            background: rgba(232, 145, 184, 0.25);
+            background: rgba(232, 160, 176, 0.35);
             border-color: var(--pink-accent);
             transform: translateY(-2px);
         }
@@ -243,12 +273,17 @@
             object-fit: cover;
             object-position: center top;
             transition: transform 0.35s ease;
-            filter: brightness(0.75);
+            filter: brightness(0.82);
+        }
+
+        /* Anime cover: show face + chest */
+        .album-card[data-album="1"] .album-cover img {
+            object-position: center 18%;
         }
 
         .album-card:hover .album-cover img {
-            transform: scale(1.08);
-            filter: brightness(0.9);
+            transform: scale(1.05);
+            filter: brightness(0.92);
         }
 
         .album-info {
@@ -257,7 +292,7 @@
             left: 0;
             right: 0;
             padding: 1.4rem 1.3rem;
-            background: linear-gradient(to top, rgba(13, 6, 24, 0.92) 0%, rgba(13, 6, 24, 0.6) 60%, transparent 100%);
+            background: linear-gradient(to top, rgba(90, 58, 66, 0.75) 0%, rgba(90, 58, 66, 0.35) 55%, transparent 100%);
             display: flex;
             flex-direction: column;
             gap: 0.35rem;
@@ -313,12 +348,14 @@
             box-shadow: var(--shadow);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             cursor: pointer;
+            content-visibility: auto;
+            contain-intrinsic-size: 220px 280px;
         }
 
         .card:hover {
             transform: translateY(-6px);
             box-shadow: var(--shadow-hover);
-            border-color: rgba(232, 145, 184, 0.4);
+            border-color: rgba(232, 160, 176, 0.5);
         }
 
         .card-img-wrap {
@@ -369,7 +406,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.6rem;
             font-weight: 500;
-            color: var(--pink-soft);
+            color: var(--pink-accent);
         }
 
         .back-btn {
@@ -387,7 +424,7 @@
         }
 
         .back-btn:hover {
-            background: rgba(232, 145, 184, 0.2);
+            background: rgba(232, 160, 176, 0.3);
             border-color: var(--pink-accent);
         }
 
@@ -396,7 +433,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.7rem 1.4rem;
-            background: linear-gradient(135deg, rgba(232, 145, 184, 0.35), rgba(74, 44, 122, 0.5));
+            background: linear-gradient(135deg, rgba(232, 160, 176, 0.55), rgba(240, 200, 180, 0.65));
             border: 1px solid var(--pink-accent);
             border-radius: 50px;
             color: var(--text-main);
@@ -409,7 +446,7 @@
         }
 
         .download-btn:hover {
-            background: linear-gradient(135deg, rgba(232, 145, 184, 0.5), rgba(74, 44, 122, 0.65));
+            background: linear-gradient(135deg, rgba(232, 160, 176, 0.7), rgba(240, 190, 170, 0.8));
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(232, 145, 184, 0.35);
         }
@@ -448,7 +485,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(8, 4, 16, 0.92);
+            background: rgba(250, 240, 230, 0.92);
             backdrop-filter: blur(6px);
             z-index: 1000;
             display: none;
@@ -516,7 +553,7 @@
         }
 
         .lightbox-nav:hover {
-            background: rgba(232, 145, 184, 0.3);
+            background: rgba(232, 160, 176, 0.4);
         }
 
         .lightbox-prev { left: 16px; }
@@ -556,11 +593,20 @@
                 left: 1rem;
             }
             .ig-wrap {
-                right: 1rem;
+                right: 0.6rem;
+                gap: 0.3rem;
             }
             .ig-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            .ig-btn span, .ig-btn {
+                /* keep compact */
+            }
+            .lang-btn {
+                min-width: 1.75rem;
+                height: 1.75rem;
+                font-size: 0.65rem;
             }
             .albums-grid {
                 grid-template-columns: 1fr;
@@ -595,6 +641,8 @@
     <a href="/" class="site-name" onclick="location.reload(); return false;">MyHenta</a>
 
     <div class="ig-wrap">
+        <button type="button" class="lang-btn active" id="langRu" data-lang="ru" title="Русский">RU</button>
+        <button type="button" class="lang-btn" id="langEn" data-lang="en" title="English">EN</button>
         <span class="flower">🌸</span>
         <a href="https://www.instagram.com/myhenta_/" target="_blank" rel="noopener noreferrer" class="ig-btn" title="Instagram">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -610,22 +658,22 @@
 
     <main>
         <section class="albums-section" id="albums">
-            <h2 class="section-title">Альбомы</h2>
+            <h2 class="section-title" data-i18n="albums">Альбомы</h2>
             <div class="albums-grid">
                 <div class="album-card" data-album="1" onclick="openAlbum(1)">
                     <div class="album-cover">
-                        <img src="images/NG-Anime-Artist-artist-Oppai-5641053.jpg" alt="" loading="lazy" decoding="async">
+                        <img src="images/anime-bath-shower.jpg" alt="" loading="lazy" decoding="async">
                     </div>
                     <div class="album-info">
-                        <span class="album-count">38 фото</span>
+                        <span class="album-count" data-count="56">56 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="2" onclick="openAlbum(2)">
                     <div class="album-cover">
-                        <img src="images/real-girl-butterflies-cover.jpg" alt="" loading="lazy" decoding="async">
+                        <img src="images/real-girl-black-bob.jpg" alt="" loading="lazy" decoding="async">
                     </div>
                     <div class="album-info">
-                        <span class="album-count">18 фото</span>
+                        <span class="album-count" data-count="18">18 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="3" onclick="openAlbum(3)">
@@ -633,7 +681,7 @@
                         <img src="images/mc-girls-1.jpg" alt="" loading="lazy" decoding="async">
                     </div>
                     <div class="album-info">
-                        <span class="album-count">2 фото</span>
+                        <span class="album-count" data-count="2">2 фото</span>
                     </div>
                 </div>
             </div>
@@ -642,7 +690,7 @@
         <div class="album-view" id="album-view-1">
             <div class="album-view-header">
                 <h3 class="album-view-title">Anime Photo</h3>
-                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
+                <button class="back-btn" onclick="closeAlbum()"><span data-i18n="back">← Назад</span></button>
             </div>
             <section class="gallery" id="gallery-album-1"></section>
         </div>
@@ -650,7 +698,7 @@
         <div class="album-view" id="album-view-2">
             <div class="album-view-header">
                 <h3 class="album-view-title">Cute Asian Photo</h3>
-                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
+                <button class="back-btn" onclick="closeAlbum()"><span data-i18n="back">← Назад</span></button>
             </div>
             <section class="gallery" id="gallery-album-2"></section>
         </div>
@@ -658,27 +706,27 @@
         <div class="album-view" id="album-view-3">
             <div class="album-view-header">
                 <h3 class="album-view-title">Minecraft rp Girls</h3>
-                <button class="back-btn" onclick="closeAlbum()">← Назад</button>
+                <button class="back-btn" onclick="closeAlbum()"><span data-i18n="back">← Назад</span></button>
             </div>
             <div class="pack-info">
                 <div>
                     <div class="pack-info-name">GirlPack 26.3</div>
-                    <div class="pack-info-desc">Minecraft Resource Pack • 2 фото</div>
+                    <div class="pack-info-desc"><span data-i18n="packdesc">Minecraft Resource Pack • 2 фото</span></div>
                 </div>
                 <a href="downloads/GirlPack_26.3.zip" class="download-btn" download>
-                    ⬇️ Скачать ресурспак
+                    <span data-i18n="download">⬇️ Скачать ресурспак</span>
                 </a>
             </div>
             <section class="gallery" id="gallery-album-3"></section>
         </div>
 
         <section class="gallery-section" id="all-photos">
-            <h2 class="section-title">Все фотографии</h2>
+            <h2 class="section-title" data-i18n="all">Все фотографии</h2>
             <section id="gallery" class="gallery"></section>
         </section>
     </main>
 
-    <p class="contact">Связаться с нами: <a href="mailto:lortan16@gmail.com">lortan16@gmail.com</a></p>
+    <p class="contact"><span data-i18n="contact">Связаться с нами:</span> <a href="mailto:lortan16@gmail.com">lortan16@gmail.com</a></p>
 
     <div class="lightbox" id="lightbox">
         <button class="lightbox-nav lightbox-prev" id="prevBtn" aria-label="Previous">‹</button>
@@ -692,11 +740,64 @@
     <script>
         // New photos first, then anime
         const images = [
+            // Pinned top row on main page (do not change)
+            'images/anime-two-girls-shower.jpg',
+            'images/anime-blonde-bubbles.jpg',
+            'images/anime-bath-shower.jpg',
+            'images/anime-shower-foam.jpg',
+            // Rest of gallery
+            'images/anime-green-eyes-bow.jpg',
+            'images/anime-brown-white-bikini.jpg',
+            'images/anime-bunny-suit.jpg',
+            'images/anime-black-frill-bra.jpg',
+            'images/anime-blonde-school-skirt.jpg',
+            'images/anime-white-back-stockings.jpg',
             'images/anime-asuna-white.jpg',
             'images/anime-blackhair-lift.jpg',
             'images/anime-white-bikini.jpg',
             'images/anime-blonde-blackbikini.jpg',
-            'images/anime-bath-shower.jpg',
+            'images/anime-blonde-white-lingerie.jpg',
+            'images/anime-school-blue-tie.jpg',
+            'images/anime-pink-bikini-ponytail.jpg',
+            'images/anime-winter-scarf.jpg',
+            'images/anime-blonde-hibiscus.jpg',
+            'images/anime-blonde-black-bandeau.jpg',
+            'images/anime-towel-bottle.jpg',
+            'images/anime-silver-white-bikini.jpg',
+            'images/anime-pink-pool.jpg',
+            'images/Anime-Artist-artist-Anime-Ero-Swim-Anime-Ero-6170435.jpg',
+            'images/NG-Anime-Artist-Anime-AO-5192739.jpg',
+            'images/NG-Anime-Artist-artist-Anime-5952506.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6003888.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6101774.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6111054.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6293466.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6336684.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6367377.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7755431.jpg',
+            'images/NG-Anime-Artist-artist-Oppai-5641053.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6349413.jpg',
+            'images/NG-Anime-Artist-artist-Oppai-7193096.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7449100.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6650574.jpg',
+            'images/NG-Anime-Artist-artist-AO-7106020.jpg',
+            'images/NG-Anime-Artist-artist-AO-7077108.jpg',
+            'images/Anime-NG-Anime-Artist-artist-8113485.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7610841.jpg',
+            'images/NG-Anime-Artist-artist-Anime-7761954.jpg',
+            'images/NG-Anime-Artist-artist-AO-7568441.jpg',
+            'images/NG-Anime-Artist-artist-AO-7732135.jpg',
+            'images/NG-Anime-Artist-artist-AO-7778332.jpg',
+            'images/NG-Anime-Artist-artist-AO-7905368.jpg',
+            'images/NG-Anime-Artist-artist-AO-8005631.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6308617.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6375972.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6410677.jpg',
+            'images/NG-Anime-Artist-artist-Anime-6910720.jpg',
+            'images/NG-Anime-Artist-artist-Anime-Ero-7223183.jpg',
+            'images/NG-Anime-Artist-artist-AO-7409371.jpg',
+            'images/NG-Anime-Artist-artist-AO-7614787.jpg',
+            'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpg',
             'images/real-girl-blonde-gray.jpg',
             'images/real-girl-pink-blackdress.jpg',
             'images/real-girl-beach-sunset.jpg',
@@ -715,6 +816,32 @@
             'images/real-girl-tattoos-butterflies.jpg',
             'images/real-girl-blonde-pigtails.jpg',
             'images/real-girl-pink-hair-night.jpg',
+        ];
+
+        const album1Images = [
+            'images/anime-blonde-bubbles.jpg',
+            'images/anime-brown-white-bikini.jpg',
+            'images/anime-bunny-suit.jpg',
+            'images/anime-two-girls-shower.jpg',
+            'images/anime-green-eyes-bow.jpg',
+            'images/anime-pink-pool.jpg',
+            'images/anime-shower-foam.jpg',
+            'images/anime-black-frill-bra.jpg',
+            'images/anime-blonde-school-skirt.jpg',
+            'images/anime-white-back-stockings.jpg',
+            'images/anime-asuna-white.jpg',
+            'images/anime-blackhair-lift.jpg',
+            'images/anime-white-bikini.jpg',
+            'images/anime-blonde-blackbikini.jpg',
+            'images/anime-bath-shower.jpg',
+            'images/anime-blonde-white-lingerie.jpg',
+            'images/anime-school-blue-tie.jpg',
+            'images/anime-pink-bikini-ponytail.jpg',
+            'images/anime-winter-scarf.jpg',
+            'images/anime-blonde-hibiscus.jpg',
+            'images/anime-blonde-black-bandeau.jpg',
+            'images/anime-towel-bottle.jpg',
+            'images/anime-silver-white-bikini.jpg',
             'images/Anime-Artist-artist-Anime-Ero-Swim-Anime-Ero-6170435.jpg',
             'images/NG-Anime-Artist-Anime-AO-5192739.jpg',
             'images/NG-Anime-Artist-artist-Anime-5952506.jpg',
@@ -749,9 +876,26 @@
             'images/NG-Anime-Artist-artist-AO-7614787.jpg',
             'images/Oshiri-Anime-Ero-Anime-Adult-Pantsu-7132301.jpg'
         ];
-
-        const album1Images = images.slice(0, 5).concat(images.slice(23));
-        const album2Images = images.slice(5, 23);
+        const album2Images = [
+            'images/real-girl-blonde-gray.jpg',
+            'images/real-girl-pink-blackdress.jpg',
+            'images/real-girl-beach-sunset.jpg',
+            'images/real-girl-cream-robe.jpg',
+            'images/real-girl-glasses-tattoos.jpg',
+            'images/real-girl-outdoor-bikini.jpg',
+            'images/real-girl-pink-tongue.jpg',
+            'images/real-girl-white-crop.jpg',
+            'images/real-girl-black-bob.jpg',
+            'images/real-girl-lying-tongue.jpg',
+            'images/real-girl-white-tank.jpg',
+            'images/real-girl-hanfu-pout.jpg',
+            'images/real-girl-night-finger.jpg',
+            'images/real-girl-peace-lace.jpg',
+            'images/real-girl-towel-cup.jpg',
+            'images/real-girl-tattoos-butterflies.jpg',
+            'images/real-girl-blonde-pigtails.jpg',
+            'images/real-girl-pink-hair-night.jpg'
+        ];
         const album3Images = [
             'images/mc-girls-1.jpg',
             'images/mc-girls-2.jpg'
@@ -759,29 +903,43 @@
 
         let currentIndex = 0;
         let currentGallery = images;
+        const built = {};
 
         function buildGallery(containerId, srcs) {
+            if (built[containerId]) return;
             const container = document.getElementById(containerId);
+            if (!container) return;
             const frag = document.createDocumentFragment();
-            srcs.forEach((src, i) => {
+            for (let i = 0; i < srcs.length; i++) {
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.dataset.index = i;
-                card.innerHTML = '<div class="card-img-wrap"><img src="' + src + '" alt="" loading="lazy" decoding="async"></div>';
-                card.addEventListener('click', function() {
-                    currentIndex = i;
-                    currentGallery = srcs;
-                    openLightbox();
-                });
+                const img = document.createElement('img');
+                img.src = srcs[i];
+                img.alt = '';
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                if (i < 4 && containerId === 'gallery') img.fetchPriority = 'high';
+                const wrap = document.createElement('div');
+                wrap.className = 'card-img-wrap';
+                wrap.appendChild(img);
+                card.appendChild(wrap);
                 frag.appendChild(card);
-            });
+            }
             container.appendChild(frag);
+            // event delegation — one listener instead of N
+            container.addEventListener('click', function(e) {
+                const card = e.target.closest('.card');
+                if (!card) return;
+                currentIndex = +card.dataset.index;
+                currentGallery = srcs;
+                openLightbox();
+            });
+            built[containerId] = true;
         }
 
+        // Build only main gallery on load (albums on demand)
         buildGallery('gallery', images);
-        buildGallery('gallery-album-1', album1Images);
-        buildGallery('gallery-album-2', album2Images);
-        buildGallery('gallery-album-3', album3Images);
 
         function openAlbum(num) {
             document.getElementById('albums').style.display = 'none';
@@ -790,6 +948,9 @@
             document.getElementById('album-view-2').classList.remove('active');
             document.getElementById('album-view-3').classList.remove('active');
             document.getElementById('album-view-' + num).classList.add('active');
+            if (num === 1) buildGallery('gallery-album-1', album1Images);
+            else if (num === 2) buildGallery('gallery-album-2', album2Images);
+            else if (num === 3) buildGallery('gallery-album-3', album3Images);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -806,56 +967,111 @@
         const lightboxImg = document.getElementById('lightboxImg');
 
         function openLightbox() {
+            if (!currentGallery || !currentGallery.length) return;
             lightboxImg.src = currentGallery[currentIndex];
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
+            // preload neighbors
+            const prev = new Image();
+            prev.src = currentGallery[(currentIndex - 1 + currentGallery.length) % currentGallery.length];
+            const next = new Image();
+            next.src = currentGallery[(currentIndex + 1) % currentGallery.length];
         }
 
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
-            lightboxImg.src = '';
+            lightboxImg.removeAttribute('src');
+        }
+
+        function showPrev(e) {
+            if (e) e.stopPropagation();
+            if (!currentGallery.length) return;
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            lightboxImg.src = currentGallery[currentIndex];
+            const prev = new Image();
+            prev.src = currentGallery[(currentIndex - 1 + currentGallery.length) % currentGallery.length];
+        }
+
+        function showNext(e) {
+            if (e) e.stopPropagation();
+            if (!currentGallery.length) return;
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            lightboxImg.src = currentGallery[currentIndex];
+            const next = new Image();
+            next.src = currentGallery[(currentIndex + 1) % currentGallery.length];
         }
 
         document.getElementById('closeBtn').addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', function(e) {
             if (e.target === lightbox) closeLightbox();
         });
-
-        document.getElementById('prevBtn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-            lightboxImg.src = currentGallery[currentIndex];
-        });
-
-        document.getElementById('nextBtn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            currentIndex = (currentIndex + 1) % currentGallery.length;
-            lightboxImg.src = currentGallery[currentIndex];
-        });
+        document.getElementById('prevBtn').addEventListener('click', showPrev);
+        document.getElementById('nextBtn').addEventListener('click', showNext);
 
         document.addEventListener('keydown', function(e) {
             if (!lightbox.classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') {
-                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-                lightboxImg.src = currentGallery[currentIndex];
-            }
-            if (e.key === 'ArrowRight') {
-                currentIndex = (currentIndex + 1) % currentGallery.length;
-                lightboxImg.src = currentGallery[currentIndex];
-            }
+            else if (e.key === 'ArrowLeft') showPrev();
+            else if (e.key === 'ArrowRight') showNext();
         });
 
-        // Header turns purple on scroll
+        // Header background on scroll (rAF-throttled)
         const headerBar = document.getElementById('headerBar');
+        let scrollTicking = false;
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 20) {
-                headerBar.classList.add('scrolled');
-            } else {
-                headerBar.classList.remove('scrolled');
-            }
+            if (scrollTicking) return;
+            scrollTicking = true;
+            requestAnimationFrame(function() {
+                headerBar.classList.toggle('scrolled', window.scrollY > 20);
+                scrollTicking = false;
+            });
         }, { passive: true });
+
+        // Language switcher
+        const i18n = {
+            ru: {
+                albums: 'Альбомы',
+                all: 'Все фотографии',
+                back: '← Назад',
+                download: '⬇️ Скачать ресурспак',
+                contact: 'Связаться с нами:',
+                packdesc: 'Minecraft Resource Pack • 2 фото',
+                photos: 'фото'
+            },
+            en: {
+                albums: 'Albums',
+                all: 'All photos',
+                back: '← Back',
+                download: '⬇️ Download pack',
+                contact: 'Contact us:',
+                packdesc: 'Minecraft Resource Pack • 2 photos',
+                photos: 'photos'
+            }
+        };
+
+        function setLang(lang) {
+            const t = i18n[lang] || i18n.ru;
+            document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+            document.querySelectorAll('.album-count[data-count]').forEach(function(el) {
+                el.textContent = el.getAttribute('data-count') + ' ' + t.photos;
+            });
+            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+            try { localStorage.setItem('myhenta-lang', lang); } catch (e) {}
+            document.documentElement.lang = lang === 'en' ? 'en' : 'ru';
+        }
+
+        document.getElementById('langRu').addEventListener('click', function() { setLang('ru'); });
+        document.getElementById('langEn').addEventListener('click', function() { setLang('en'); });
+
+        try {
+            const saved = localStorage.getItem('myhenta-lang');
+            if (saved === 'en' || saved === 'ru') setLang(saved);
+        } catch (e) {}
 
     </script>
 </body>
