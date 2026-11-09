@@ -513,6 +513,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            touch-action: pan-y;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         .lightbox-content img {
@@ -521,6 +524,29 @@
             object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            transition: transform 0.48s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.48s ease;
+            will-change: transform, opacity;
+            cursor: grab;
+        }
+
+        .lightbox-content img.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+
+        .lightbox-content img.swipe-left {
+            transform: translateX(-18%) scale(0.985);
+            opacity: 0;
+        }
+
+        .lightbox-content img.swipe-right {
+            transform: translateX(18%) scale(0.985);
+            opacity: 0;
+        }
+
+        .lightbox-content img.swipe-in {
+            transform: translateX(0) scale(1);
+            opacity: 1;
         }
 
         .lightbox-close {
@@ -592,30 +618,62 @@
         }
 
         @media (max-width: 768px) {
-            .logo {
-                font-size: 1.2rem;
-                top: 4.2rem;
-                left: 50%;
+            .header-bar {
+                height: 3.6rem;
             }
             .site-name {
-                font-size: 1.5rem;
-                left: 1rem;
+                top: 0.95rem;
+                left: 0.85rem;
+                font-size: 1.15rem;
+                letter-spacing: 0.1em;
+                max-width: 42vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .logo {
+                top: 3.7rem;
+                left: 50%;
+                font-size: 1.05rem;
+                letter-spacing: 0.02em;
+                max-width: 94vw;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             .ig-wrap {
-                right: 0.6rem;
-                gap: 0.3rem;
+                top: 0.7rem;
+                right: 0.55rem;
+                gap: 0.28rem;
+                max-width: 52vw;
+                justify-content: flex-end;
+                flex-wrap: nowrap;
+            }
+            .ig-wrap .flower {
+                display: none;
             }
             .ig-btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.85rem;
+                padding: 0.35rem 0.55rem;
+                font-size: 0;
+                gap: 0;
+                border-radius: 9px;
+                min-width: 2rem;
+                height: 2rem;
+                justify-content: center;
             }
-            .ig-btn span, .ig-btn {
-                /* keep compact */
+            .ig-btn svg {
+                width: 15px;
+                height: 15px;
+                margin: 0;
             }
             .lang-btn {
-                min-width: 1.75rem;
-                height: 1.75rem;
-                font-size: 0.65rem;
+                min-width: 1.7rem;
+                height: 1.7rem;
+                font-size: 0.62rem;
+                padding: 0 0.28rem;
+                border-radius: 7px;
+                flex-shrink: 0;
+            }
+            .top-divider {
+                top: 5.5rem;
             }
             .albums-grid {
                 grid-template-columns: 1fr;
@@ -626,7 +684,7 @@
                 gap: 0.9rem;
             }
             main {
-                padding: 7rem 1rem 3rem;
+                padding: 6.6rem 1rem 3rem;
             }
             .lightbox-nav {
                 width: 40px;
@@ -638,8 +696,21 @@
             .album-name {
                 font-size: 1.25rem;
             }
-            .header-bar {
-                height: 5.5rem;
+        }
+
+        @media (max-width: 380px) {
+            .site-name {
+                font-size: 1.05rem;
+                left: 0.7rem;
+            }
+            .ig-wrap {
+                right: 0.4rem;
+                gap: 0.22rem;
+            }
+            .lang-btn {
+                min-width: 1.55rem;
+                height: 1.55rem;
+                font-size: 0.58rem;
             }
         }
     </style>
@@ -1004,41 +1075,77 @@
 
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxContent = document.querySelector('.lightbox-content');
+        let swipeBusy = false;
 
-        function openLightbox() {
-            if (!currentGallery || !currentGallery.length) return;
-            lightboxImg.src = currentGallery[currentIndex];
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            // preload neighbors
+        function preloadNeighbors() {
+            if (!currentGallery.length) return;
             const prev = new Image();
             prev.src = currentGallery[(currentIndex - 1 + currentGallery.length) % currentGallery.length];
             const next = new Image();
             next.src = currentGallery[(currentIndex + 1) % currentGallery.length];
+        }
+
+        function openLightbox() {
+            if (!currentGallery || !currentGallery.length) return;
+            lightboxImg.className = '';
+            lightboxImg.style.transform = '';
+            lightboxImg.style.opacity = '';
+            lightboxImg.src = currentGallery[currentIndex];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            preloadNeighbors();
         }
 
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = '';
             lightboxImg.removeAttribute('src');
+            lightboxImg.className = '';
+            lightboxImg.style.transform = '';
+            lightboxImg.style.opacity = '';
+        }
+
+        function animateSwap(direction, callback) {
+            if (swipeBusy) return;
+            swipeBusy = true;
+            lightboxImg.classList.remove('swipe-in', 'swipe-left', 'swipe-right', 'dragging');
+            lightboxImg.classList.add(direction === 'next' ? 'swipe-left' : 'swipe-right');
+            setTimeout(function() {
+                callback();
+                lightboxImg.classList.remove('swipe-left', 'swipe-right');
+                lightboxImg.style.transform = direction === 'next' ? 'translateX(18%)' : 'translateX(-18%)';
+                lightboxImg.style.opacity = '0';
+                void lightboxImg.offsetWidth;
+                lightboxImg.style.transition = 'transform 0.48s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.48s ease';
+                lightboxImg.style.transform = 'translateX(0)';
+                lightboxImg.style.opacity = '1';
+                setTimeout(function() {
+                    lightboxImg.style.transition = '';
+                    lightboxImg.style.transform = '';
+                    lightboxImg.style.opacity = '';
+                    swipeBusy = false;
+                    preloadNeighbors();
+                }, 480);
+            }, 320);
         }
 
         function showPrev(e) {
             if (e) e.stopPropagation();
-            if (!currentGallery.length) return;
-            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
-            lightboxImg.src = currentGallery[currentIndex];
-            const prev = new Image();
-            prev.src = currentGallery[(currentIndex - 1 + currentGallery.length) % currentGallery.length];
+            if (!currentGallery.length || swipeBusy) return;
+            animateSwap('prev', function() {
+                currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+                lightboxImg.src = currentGallery[currentIndex];
+            });
         }
 
         function showNext(e) {
             if (e) e.stopPropagation();
-            if (!currentGallery.length) return;
-            currentIndex = (currentIndex + 1) % currentGallery.length;
-            lightboxImg.src = currentGallery[currentIndex];
-            const next = new Image();
-            next.src = currentGallery[(currentIndex + 1) % currentGallery.length];
+            if (!currentGallery.length || swipeBusy) return;
+            animateSwap('next', function() {
+                currentIndex = (currentIndex + 1) % currentGallery.length;
+                lightboxImg.src = currentGallery[currentIndex];
+            });
         }
 
         document.getElementById('closeBtn').addEventListener('click', closeLightbox);
@@ -1047,6 +1154,85 @@
         });
         document.getElementById('prevBtn').addEventListener('click', showPrev);
         document.getElementById('nextBtn').addEventListener('click', showNext);
+
+        // ===== Swipe: finger (phone) + trackpad/mouse drag (desktop) =====
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let dragDeltaX = 0;
+        let dragging = false;
+        let pointerId = null;
+
+        function onPointerDown(e) {
+            if (swipeBusy) return;
+            // ignore clicks on buttons
+            if (e.target.closest && e.target.closest('button')) return;
+            pointerId = e.pointerId;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragDeltaX = 0;
+            dragging = true;
+            lightboxImg.classList.add('dragging');
+            try { lightboxContent.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+
+        function onPointerMove(e) {
+            if (!dragging || e.pointerId !== pointerId) return;
+            dragDeltaX = e.clientX - dragStartX;
+            const dy = e.clientY - dragStartY;
+            // if mostly vertical scroll, ignore
+            if (Math.abs(dy) > Math.abs(dragDeltaX) && Math.abs(dy) > 12) return;
+            e.preventDefault();
+            const resist = Math.max(-90, Math.min(90, dragDeltaX * 0.45));
+            lightboxImg.style.transform = 'translateX(' + resist + 'px) scale(' + (1 - Math.abs(resist) / 1400) + ')';
+            lightboxImg.style.opacity = String(1 - Math.abs(resist) / 500);
+        }
+
+        function onPointerUp(e) {
+            if (!dragging || (pointerId !== null && e.pointerId !== pointerId)) return;
+            dragging = false;
+            lightboxImg.classList.remove('dragging');
+            try { lightboxContent.releasePointerCapture(e.pointerId); } catch (err) {}
+            const threshold = Math.max(100, Math.min(140, window.innerWidth * 0.22));
+            if (dragDeltaX <= -threshold) {
+                lightboxImg.style.transform = '';
+                lightboxImg.style.opacity = '';
+                showNext();
+            } else if (dragDeltaX >= threshold) {
+                lightboxImg.style.transform = '';
+                lightboxImg.style.opacity = '';
+                showPrev();
+            } else {
+                lightboxImg.style.transition = 'transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.4s ease';
+                lightboxImg.style.transform = 'translateX(0)';
+                lightboxImg.style.opacity = '1';
+                setTimeout(function() {
+                    lightboxImg.style.transition = '';
+                    lightboxImg.style.transform = '';
+                    lightboxImg.style.opacity = '';
+                }, 400);
+            }
+            dragDeltaX = 0;
+            pointerId = null;
+        }
+
+        lightboxContent.addEventListener('pointerdown', onPointerDown);
+        lightboxContent.addEventListener('pointermove', onPointerMove, { passive: false });
+        lightboxContent.addEventListener('pointerup', onPointerUp);
+        lightboxContent.addEventListener('pointercancel', onPointerUp);
+
+        // Trackpad two-finger horizontal swipe (wheel event)
+        let wheelLock = false;
+        lightbox.addEventListener('wheel', function(e) {
+            if (!lightbox.classList.contains('active') || swipeBusy || wheelLock) return;
+            // horizontal trackpad gesture
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 28) {
+                e.preventDefault();
+                wheelLock = true;
+                if (e.deltaX > 0) showNext();
+                else showPrev();
+                setTimeout(function() { wheelLock = false; }, 550);
+            }
+        }, { passive: false });
 
         document.addEventListener('keydown', function(e) {
             if (!lightbox.classList.contains('active')) return;
