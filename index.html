@@ -236,9 +236,9 @@
 
         .albums-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 0.85rem;
-            max-width: 640px;
+            max-width: 860px;
             margin: 0 auto;
         }
 
@@ -649,9 +649,10 @@
             text-decoration: underline;
         }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 900px) {
             .albums-grid {
                 grid-template-columns: repeat(2, 1fr);
+                max-width: 480px;
             }
         }
 
@@ -788,7 +789,7 @@
                 <div class="album-card" data-album="1" onclick="openAlbum(1)">
                     <div class="album-info">
                         <span class="album-name">Anime Photo</span>
-                        <span class="album-count" data-count="92">92 фото</span>
+                        <span class="album-count" data-count="101">101 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="2" onclick="openAlbum(2)">
@@ -801,6 +802,12 @@
                     <div class="album-info">
                         <span class="album-name">Minecraft rp Girls</span>
                         <span class="album-count" data-count="2">2 фото</span>
+                    </div>
+                </div>
+                <div class="album-card" data-album="4" onclick="openAlbum(4)">
+                    <div class="album-info">
+                        <span class="album-name">18+ фото</span>
+                        <span class="album-count" data-count="30">30 фото</span>
                     </div>
                 </div>
             </div>
@@ -839,6 +846,14 @@
             <section class="gallery" id="gallery-album-3"></section>
         </div>
 
+        <div class="album-view" id="album-view-4">
+            <div class="album-view-header">
+                <h3 class="album-view-title">18+ фото</h3>
+                <button class="back-btn" onclick="closeAlbum()"><span data-i18n="back">← Назад</span></button>
+            </div>
+            <section class="gallery" id="gallery-album-4"></section>
+        </div>
+
         <section class="gallery-section" id="all-photos">
             <h2 class="section-title" data-i18n="all">Все фотографии</h2>
             <section id="gallery" class="gallery"></section>
@@ -870,6 +885,15 @@
         // New photos first, then anime
         const images = [
             // All photos from albums, newest first
+            'images/anime-yellow-bikini-water.jpg',
+            'images/anime-blonde-white-lingerie-lift.jpg',
+            'images/anime-blue-swimsuit-pull.jpg',
+            'images/anime-purple-eyes-white-top.jpg',
+            'images/anime-black-tights-bed.jpg',
+            'images/anime-wa2000-black-swimsuit.jpg',
+            'images/anime-pink-shower.jpg',
+            'images/anime-rem-emilia-water.jpg',
+            'images/anime-cat-maid-bed.jpg',
             'images/anime-pink-cat-bikini.jpg',
             'images/anime-blue-ribbon-feet.jpg',
             'images/anime-night-pool-black.jpg',
@@ -983,6 +1007,15 @@
         ];
 
         const album1Images = [
+            'images/anime-yellow-bikini-water.jpg',
+            'images/anime-blonde-white-lingerie-lift.jpg',
+            'images/anime-blue-swimsuit-pull.jpg',
+            'images/anime-purple-eyes-white-top.jpg',
+            'images/anime-black-tights-bed.jpg',
+            'images/anime-wa2000-black-swimsuit.jpg',
+            'images/anime-pink-shower.jpg',
+            'images/anime-rem-emilia-water.jpg',
+            'images/anime-cat-maid-bed.jpg',
             'images/anime-pink-cat-bikini.jpg',
             'images/anime-blue-ribbon-feet.jpg',
             'images/anime-night-pool-black.jpg',
@@ -1101,6 +1134,39 @@
             'images/mc-girls-2.jpg'
         ];
 
+        const album4Images = [
+            'images/Anime-Artist-Anime-NG-Anime-Ero-Oppai-2581481.jpeg',
+            'images/Anime-Ero-Anime-Anime-Ero-Oppai-Anime-Ero-Swim-2345645.jpeg',
+            'images/Anime-Ero-Oppai-Anime-Ero-Anime-NG-3985437.jpeg',
+            'images/Anime-Original-Anime-Artist-Anime-NG-4141863.png',
+            'images/Anime-Original-Anime-Artist-Anime-NG-4143557.png',
+            'images/Anime-Original-Anime-Artist-Anime-NG-4274116.png',
+            'images/Anime-Original-Anime-Artist-Anime-NG-4333839.png',
+            'images/Anime-Original-Anime-Artist-Anime-NG-4334550.jpeg',
+            'images/Anime-Shimamura-Uzuki-Idolmaster-NG-4147652.png',
+            'images/Anime-Vert-(Neptune)-Neptune-(Series)-Anime-Ero-Oppai-3171573.jpeg',
+            'images/Hoshii-Miki-Idolmaster-Anime-NG-2384748.jpeg',
+            'images/NG-Anime-Artist-Anime-AO-4591999.jpeg',
+            'images/NG-Anime-Artist-Anime-AO-4804957.jpeg',
+            'images/NG-Anime-Artist-Anime-AO-4991120.jpeg',
+            'images/NG-Anime-Artist-Anime-Anime-Ero-Oppai-4063592.jpeg',
+            'images/NG-Anime-Artist-Anime-Anime-Ero-Oppai-4147643.png',
+            'images/NG-Anime-Artist-Anime-Anime-Ero-Oppai-5103877.png',
+            'images/NG-Anime-Artist-Anime-Anime-Ero-Swim-4043652.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5218601.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5425346.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5463575.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5579148.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5720877.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-5900223.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-Ero-Ass-5586992.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-Ero-Oppai-5575738.jpeg',
+            'images/NG-Anime-Artist-artist-Anime-Ero-Oppai-5641040.png',
+            'images/NG-Anime-Artist-artist-Oppai-5799765.jpeg',
+            'images/Oppai-Anime-Ero-Anime-Anime-Ero-Swim-5898034.jpg',
+            'images/Shimamura-Uzuki-Idolmaster-Anime-NG-4205948.jpeg',
+        ];
+
         let currentIndex = 0;
         let currentGallery = images;
         const built = {};
@@ -1205,10 +1271,12 @@
             document.getElementById('album-view-1').classList.remove('active');
             document.getElementById('album-view-2').classList.remove('active');
             document.getElementById('album-view-3').classList.remove('active');
+            document.getElementById('album-view-4').classList.remove('active');
             document.getElementById('album-view-' + num).classList.add('active');
             if (num === 1) buildGallery('gallery-album-1', album1Images);
             else if (num === 2) buildGallery('gallery-album-2', album2Images);
             else if (num === 3) buildGallery('gallery-album-3', album3Images);
+            else if (num === 4) buildGallery('gallery-album-4', album4Images);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -1216,6 +1284,7 @@
             document.getElementById('album-view-1').classList.remove('active');
             document.getElementById('album-view-2').classList.remove('active');
             document.getElementById('album-view-3').classList.remove('active');
+            document.getElementById('album-view-4').classList.remove('active');
             document.getElementById('albums').style.display = 'block';
             document.getElementById('all-photos').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
