@@ -564,16 +564,14 @@
         .lightbox-action-btn.liked img.like-icon {
             filter: none;
         }
-        }
 
         .lightbox-close {
             position: static;
-            background: transparent;
             border: 1px solid var(--glass-border);
             background: var(--glass-bg);
             backdrop-filter: blur(8px);
             color: var(--text-main);
-            font-size: 1.6rem;
+            font-size: 1.75rem;
             cursor: pointer;
             line-height: 1;
             width: 2.4rem;
@@ -603,6 +601,9 @@
             .lightbox-close {
                 width: 2.35rem;
                 height: 2.35rem;
+            }
+            .lightbox-close {
+                font-size: 1.65rem;
             }
         }
 
@@ -789,7 +790,7 @@
                 <div class="album-card" data-album="1" onclick="openAlbum(1)">
                     <div class="album-info">
                         <span class="album-name">Anime Photo</span>
-                        <span class="album-count" data-count="101">101 фото</span>
+                        <span class="album-count" data-count="104">104 фото</span>
                     </div>
                 </div>
                 <div class="album-card" data-album="2" onclick="openAlbum(2)">
@@ -885,6 +886,9 @@
         // New photos first, then anime
         const images = [
             // All photos from albums, newest first
+            'images/anime-pink-check-bikini-beach.jpg',
+            'images/anime-red-hair-black-bikini.jpg',
+            'images/anime-glasses-bathtub.jpg',
             'images/anime-yellow-bikini-water.jpg',
             'images/anime-blonde-white-lingerie-lift.jpg',
             'images/anime-blue-swimsuit-pull.jpg',
@@ -1007,6 +1011,9 @@
         ];
 
         const album1Images = [
+            'images/anime-pink-check-bikini-beach.jpg',
+            'images/anime-red-hair-black-bikini.jpg',
+            'images/anime-glasses-bathtub.jpg',
             'images/anime-yellow-bikini-water.jpg',
             'images/anime-blonde-white-lingerie-lift.jpg',
             'images/anime-blue-swimsuit-pull.jpg',
